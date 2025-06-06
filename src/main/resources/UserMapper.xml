@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pgstudy.UserMapper">
+    <resultMap id="UserResultMap" type="com.example.pgstudy.User">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="age" column="age" />
+    </resultMap>
+
+    <insert id="insertUser" parameterType="com.example.pgstudy.User">
+        INSERT INTO users (name, age) VALUES (#{name}, #{age})
+    </insert>
+
+    <select id="selectAllUsers" resultMap="UserResultMap">
+        SELECT * FROM users
+    </select>
+
+    <update id="updateUser" parameterType="com.example.pgstudy.User">
+        UPDATE users SET age = #{age} WHERE name = #{name}
+    </update>
+
+    <delete id="deleteUserByName" parameterType="string">
+        DELETE FROM users WHERE name = #{name}
+    </delete>
+</mapper> 

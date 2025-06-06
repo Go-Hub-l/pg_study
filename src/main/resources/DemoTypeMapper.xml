@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pgstudy.DemoTypeMapper">
+    <resultMap id="DemoTypeResultMap" type="com.example.pgstudy.DemoType">
+        <id property="id" column="id" />
+        <result property="intCol" column="int_col" />
+        <result property="bigintCol" column="bigint_col" />
+        <result property="smallintCol" column="smallint_col" />
+        <result property="serialCol" column="serial_col" />
+        <result property="decimalCol" column="decimal_col" />
+        <result property="numericCol" column="numeric_col" />
+        <result property="realCol" column="real_col" />
+        <result property="doubleCol" column="double_col" />
+        <result property="charCol" column="char_col" />
+        <result property="varcharCol" column="varchar_col" />
+        <result property="textCol" column="text_col" />
+        <result property="boolCol" column="bool_col" />
+        <result property="dateCol" column="date_col" />
+        <result property="timeCol" column="time_col" />
+        <result property="timestampCol" column="timestamp_col" />
+        <result property="intervalCol" column="interval_col" typeHandler="com.example.pgstudy.IntervalTypeHandler" />
+        <result property="byteaCol" column="bytea_col" />
+        <result property="jsonCol" column="json_col" typeHandler="com.example.pgstudy.JsonTypeHandler" />
+        <result property="jsonbCol" column="jsonb_col" typeHandler="com.example.pgstudy.JsonbTypeHandler" />
+        <result property="uuidCol" column="uuid_col" />
+        <result property="intArrayCol" column="int_array_col" />
+        <result property="textArrayCol" column="text_array_col" />
+        <result property="inetCol" column="inet_col" typeHandler="com.example.pgstudy.PostgreSQLTypeHandler" />
+        <result property="cidrCol" column="cidr_col" typeHandler="com.example.pgstudy.PostgreSQLTypeHandler" />
+        <result property="macaddrCol" column="macaddr_col" typeHandler="com.example.pgstudy.PostgreSQLTypeHandler" />
+        <result property="pointCol" column="point_col" typeHandler="com.example.pgstudy.PostgreSQLTypeHandler" />
+        <result property="lineCol" column="line_col" typeHandler="com.example.pgstudy.PostgreSQLTypeHandler" />
+        <result property="lsegCol" column="lseg_col" typeHandler="com.example.pgstudy.PostgreSQLTypeHandler" />
+        <result property="boxCol" column="box_col" typeHandler="com.example.pgstudy.PostgreSQLTypeHandler" />
+        <result property="pathCol" column="path_col" typeHandler="com.example.pgstudy.PostgreSQLTypeHandler" />
+        <result property="polygonCol" column="polygon_col" typeHandler="com.example.pgstudy.PostgreSQLTypeHandler" />
+        <result property="circleCol" column="circle_col" typeHandler="com.example.pgstudy.PostgreSQLTypeHandler" />
+        <result property="xmlCol" column="xml_col" typeHandler="com.example.pgstudy.PostgreSQLTypeHandler" />
+        <result property="moneyCol" column="money_col" />
+    </resultMap>
+
+    <insert id="insertDemoType" parameterType="com.example.pgstudy.DemoType">
+        INSERT INTO demo_types (
+            int_col, bigint_col, smallint_col, serial_col, decimal_col, numeric_col, real_col, double_col,
+            char_col, varchar_col, text_col, bool_col, date_col, time_col, timestamp_col, interval_col,
+            bytea_col, json_col, jsonb_col, uuid_col, int_array_col, text_array_col, inet_col, cidr_col, macaddr_col,
+            point_col, line_col, lseg_col, box_col, path_col, polygon_col, circle_col, xml_col, money_col
+        ) VALUES (
+            #{intCol}, #{bigintCol}, #{smallintCol}, #{serialCol}, #{decimalCol}, #{numericCol}, #{realCol}, #{doubleCol},
+            #{charCol}, #{varcharCol}, #{textCol}, #{boolCol}, #{dateCol}, #{timeCol}, #{timestampCol}, #{intervalCol, typeHandler=com.example.pgstudy.IntervalTypeHandler},
+            #{byteaCol}, #{jsonCol, typeHandler=com.example.pgstudy.JsonTypeHandler}, #{jsonbCol, typeHandler=com.example.pgstudy.JsonbTypeHandler}, #{uuidCol}, #{intArrayCol, jdbcType=ARRAY}, #{textArrayCol, jdbcType=ARRAY}, 
+            #{inetCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, #{cidrCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, #{macaddrCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler},
+            #{pointCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, #{lineCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, #{lsegCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, #{boxCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, #{pathCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, #{polygonCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, #{circleCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, #{xmlCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, #{moneyCol}
+        )
+    </insert>
+
+    <select id="selectAllDemoTypes" resultMap="DemoTypeResultMap">
+        SELECT * FROM demo_types
+    </select>
+
+    <update id="updateDemoType" parameterType="com.example.pgstudy.DemoType">
+        UPDATE demo_types SET
+            int_col=#{intCol}, bigint_col=#{bigintCol}, smallint_col=#{smallintCol}, serial_col=#{serialCol},
+            decimal_col=#{decimalCol}, numeric_col=#{numericCol}, real_col=#{realCol}, double_col=#{doubleCol},
+            char_col=#{charCol}, varchar_col=#{varcharCol}, text_col=#{textCol}, bool_col=#{boolCol},
+            date_col=#{dateCol}, time_col=#{timeCol}, timestamp_col=#{timestampCol}, interval_col=#{intervalCol, typeHandler=com.example.pgstudy.IntervalTypeHandler},
+            bytea_col=#{byteaCol}, json_col=#{jsonCol, typeHandler=com.example.pgstudy.JsonTypeHandler}, jsonb_col=#{jsonbCol, typeHandler=com.example.pgstudy.JsonbTypeHandler}, uuid_col=#{uuidCol},
+            int_array_col=#{intArrayCol, jdbcType=ARRAY}, text_array_col=#{textArrayCol, jdbcType=ARRAY},
+            inet_col=#{inetCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, cidr_col=#{cidrCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, macaddr_col=#{macaddrCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, point_col=#{pointCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler},
+            line_col=#{lineCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, lseg_col=#{lsegCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, box_col=#{boxCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, path_col=#{pathCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler},
+            polygon_col=#{polygonCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, circle_col=#{circleCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, xml_col=#{xmlCol, typeHandler=com.example.pgstudy.PostgreSQLTypeHandler}, money_col=#{moneyCol}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteDemoTypeById" parameterType="int">
+        DELETE FROM demo_types WHERE id=#{id}
+    </delete>
+</mapper> 
