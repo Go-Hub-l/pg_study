@@ -15,64 +15,9 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException, SQLException {
-        // 1. 先确保表存在
-        String url = "jdbc:postgresql://localhost:5432/root";
-        String user = "root";
-        String password = "123456";
-        try (Connection conn = DriverManager.getConnection(url, user, password)) {
-            String createTable = "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name VARCHAR(100), age INT)";
-            try (Statement stmt = conn.createStatement()) {
-                stmt.execute(createTable);
-            }
-        }
+        initTable();
 
-        // 创建demo_types表（如已存在可忽略）
-        try (Connection conn = DriverManager.getConnection(url, user, password)) {
-            String createDemoTypesTable = """
-            CREATE TABLE IF NOT EXISTS demo_types (
-                id SERIAL PRIMARY KEY,
-                int_col INTEGER,
-                bigint_col BIGINT,
-                smallint_col SMALLINT,
-                serial_col SERIAL,
-                decimal_col DECIMAL(10,2),
-                numeric_col NUMERIC(10,2),
-                real_col REAL,
-                double_col DOUBLE PRECISION,
-                char_col CHAR(10),
-                varchar_col VARCHAR(50),
-                text_col TEXT,
-                bool_col BOOLEAN,
-                date_col DATE,
-                time_col TIME,
-                timestamp_col TIMESTAMP,
-                interval_col INTERVAL,
-                bytea_col BYTEA,
-                json_col JSON,
-                jsonb_col JSONB,
-                uuid_col UUID,
-                int_array_col INTEGER[],
-                text_array_col TEXT[],
-                inet_col INET,
-                cidr_col CIDR,
-                macaddr_col MACADDR,
-                point_col POINT,
-                line_col LINE,
-                lseg_col LSEG,
-                box_col BOX,
-                path_col PATH,
-                polygon_col POLYGON,
-                circle_col CIRCLE,
-                xml_col XML,
-                money_col MONEY
-            );
-            """;
-            try (Statement stmt = conn.createStatement()) {
-                stmt.execute(createDemoTypesTable);
-            }
-        }
-
-        // 2. MyBatis配置
+        // MyBatis配置
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
@@ -165,6 +110,66 @@ public class Main {
             if (!demoList.isEmpty()) {
                 demoTypeMapper.deleteDemoTypeById(demoList.get(0).getId());
                 System.out.println("删除demo_types成功");
+            }
+        }
+    }
+
+    public static void initTable() throws IOException, SQLException {
+
+        // 1. 先确保表存在
+        String url = "jdbc:postgresql://localhost:5432/root";
+        String user = "root";
+        String password = "123456";
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+            String createTable = "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name VARCHAR(100), age INT)";
+            try (Statement stmt = conn.createStatement()) {
+                stmt.execute(createTable);
+            }
+        }
+
+        // 创建demo_types表（如已存在可忽略）
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+            String createDemoTypesTable = """
+            CREATE TABLE IF NOT EXISTS demo_types (
+                id SERIAL PRIMARY KEY,
+                int_col INTEGER,
+                bigint_col BIGINT,
+                smallint_col SMALLINT,
+                serial_col SERIAL,
+                decimal_col DECIMAL(10,2),
+                numeric_col NUMERIC(10,2),
+                real_col REAL,
+                double_col DOUBLE PRECISION,
+                char_col CHAR(10),
+                varchar_col VARCHAR(50),
+                text_col TEXT,
+                bool_col BOOLEAN,
+                date_col DATE,
+                time_col TIME,
+                timestamp_col TIMESTAMP,
+                interval_col INTERVAL,
+                bytea_col BYTEA,
+                json_col JSON,
+                jsonb_col JSONB,
+                uuid_col UUID,
+                int_array_col INTEGER[],
+                text_array_col TEXT[],
+                inet_col INET,
+                cidr_col CIDR,
+                macaddr_col MACADDR,
+                point_col POINT,
+                line_col LINE,
+                lseg_col LSEG,
+                box_col BOX,
+                path_col PATH,
+                polygon_col POLYGON,
+                circle_col CIRCLE,
+                xml_col XML,
+                money_col MONEY
+            );
+            """;
+            try (Statement stmt = conn.createStatement()) {
+                stmt.execute(createDemoTypesTable);
             }
         }
     }

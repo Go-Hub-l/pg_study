@@ -3,14 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+<!--    给User对象起别名User，如果不定义这个，后续使用到User的地方必须引用User对象的全路径名-->
     <typeAliases>
         <typeAlias type="com.example.pgstudy.User" alias="User"/>
     </typeAliases>
+<!--    全局类型处理器-->
     <typeHandlers>
         <typeHandler handler="com.example.pgstudy.UUIDTypeHandler"/>
         <typeHandler handler="com.example.pgstudy.IntegerArrayTypeHandler"/>
         <typeHandler handler="com.example.pgstudy.StringArrayTypeHandler"/>
     </typeHandlers>
+<!--    配置数据源-->
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -22,6 +25,7 @@
             </dataSource>
         </environment>
     </environments>
+<!--    配置mapper资源文件-->
     <mappers>
         <mapper resource="UserMapper.xml"/>
         <mapper resource="DemoTypeMapper.xml"/>
